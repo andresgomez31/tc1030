@@ -1,0 +1,47 @@
+class Item:
+- attributes: 
+    - id (string)
+    - name (string)
+    - category (string)
+    - stock (int)
+    - price (float .2f)
+    - cost (float .2f)
+- methods:
+    - get_id()
+    - get_name()
+    - get_category()
+    - get_stock()
+    - get_price()
+    - get_cost()
+    - set_id()
+    - set_name()
+    - set_category()
+    - set_price()
+    - set_cost()
+
+class StockOperation:
+- attributes:
+    - item_id (string)
+    - quantity (int)
+    - date (string ISO) 
+- methods:
+    - get_item_id()
+    - get_quantity()
+    - get_date()
+    - apply()
+    - ~StockOperation()
+
+class Inventory:
+- attributes:
+    - items (map<string, Item>)
+    - operations (vector<StockOperation*>)
+    - csv_items_path (string)
+    - csv_operations_path (string)
+- methods:
+    - load_items()
+    - save_items()
+    - add_item()
+    - remove_item()
+    - apply_operation(StockOperation* op)
+    - show_inventory()
+
