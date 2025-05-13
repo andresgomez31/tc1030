@@ -1,0 +1,13 @@
+#ifndef FILESTATUS_HPP
+#define FILESTATUS_HPP
+
+enum class FileStatus {
+    OK,
+    FILE_NOT_FOUND,
+    PERMISSION_DENIED,
+    WRITE_ERROR,
+    INSUFFICIENT_STOCK,
+    UNKNOWN_ERROR
+};
+
+#endif
