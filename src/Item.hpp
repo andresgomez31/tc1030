@@ -32,4 +32,6 @@ class Item {
         void set_stock(int stock);
         void set_price(float price);
         void set_cost(float cost);
+
+        friend std::ostream& operator<<(std::ostream& os, const Item& item);
 };

@@ -22,7 +22,10 @@ class StockOperation {
         std::string get_date() const;
         virtual std::string get_type() const = 0;
 
-        // Apply operations on CSV file
+        // Setters
+        void set_date();
+
+        // Apply operations
         virtual FileStatus apply(Item& item) const = 0;
         // Destructor
         virtual ~StockOperation() = default;

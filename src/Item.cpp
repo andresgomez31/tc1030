@@ -1,4 +1,5 @@
 #include "Item.hpp"
+#include <iostream>
 
 Item::Item() : id(""), name(""), category(""), stock(0), price(0.0f), cost(0.0f) {}
 
@@ -20,3 +21,14 @@ void Item::set_category(std::string category) { this -> category = category; }
 void Item::set_stock(int stock) { this -> stock = stock; }
 void Item::set_price(float price) { this -> price = price; }
 void Item::set_cost(float cost) { this -> cost = cost; }
+
+// Operator overloads
+std::ostream& operator<<(std::ostream& os, const Item& item) {
+    os << "ID: " << item.get_id() << "\n"
+       << "Name: " << item.get_name() << "\n"
+       << "Category: " << item.get_category() << "\n"
+       << "Stock: " << item.get_stock() << "\n"
+       << "Price: $" << item.get_price() << "\n"
+       << "Cost: $" << item.get_cost() << "\n";
+    return os;
+}
