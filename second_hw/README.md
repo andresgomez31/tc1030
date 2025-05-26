@@ -17,15 +17,21 @@ Este proyecto es una práctica de programación orientada a objetos en C++, que 
 
 ## Archivos
 
+```text
 second_hw/
 │
-├── main.cpp # Archivo principal
+├── main.cpp
 ├── src/
-│ ├── Camera.cpp/.hpp
-│ ├── Computer.cpp/.hpp
-│ ├── MobileDev.cpp/.hpp
-│ └── Smartphone.cpp/.hpp
+│   ├── Camera.cpp
+│   ├── Camera.hpp
+│   ├── Computer.cpp
+│   ├── Computer.hpp
+│   ├── MobileDev.cpp
+│   ├── MobileDev.hpp
+│   ├── Smartphone.cpp
+│   └── Smartphone.hpp
 └── README.md
+```
 
 ## Compilación
 
