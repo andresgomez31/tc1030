@@ -1,8 +1,14 @@
+// File: Smartphone.cpp
+
 #include "Smartphone.hpp"
+#include <limits>
 
 Smartphone::Smartphone() : carrier("unavailable") {}
 
 Smartphone::Smartphone(std::string carrier) : carrier(carrier) {}
+
+Smartphone::Smartphone(std::string brand, float screenSize, int ramAmount, float cpuClockSpeed, float lensSize, std::string carrier)
+    : MobileDev(brand, screenSize, ramAmount, cpuClockSpeed, lensSize), carrier(carrier) {}
 
 void Smartphone::takePicture() {
     std::string input;
@@ -29,6 +35,6 @@ void Smartphone::takePicture() {
     }
     while (countdown < 0);
 
-    takePicture(countdown);
+    MobileDev::takePicture(countdown);
     std::cout << "Picture taken with phone carrier: " << carrier << std::endl;
 }

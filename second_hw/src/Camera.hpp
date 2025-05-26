@@ -1,6 +1,9 @@
+// File: Camera.hpp
+
 #pragma once
 #include <iostream> 
 #include <ctime>
+#include <string>
 
 class Camera {
     private:
@@ -9,6 +12,8 @@ class Camera {
     public:
         Camera();
         Camera(float lensSize);
+
+        float getLensSize();
 
         virtual void takePicture();
 };

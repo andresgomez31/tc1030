@@ -1,3 +1,5 @@
+// File: Computer.hpp
+
 #pragma once
 #include <iostream>
 
@@ -9,5 +11,9 @@ class Computer {
     public:
         Computer();
         Computer(int ramAmount, float cpuClockSpeed);
-        void turnOn(){};
+
+        int getRamAmount();
+        float getCpuClockSpeed();
+
+        void turnOn();
 };
