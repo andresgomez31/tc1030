@@ -94,7 +94,9 @@ Terminal that accepts standard input (std::cin)
 
 This project uses only standard libraries:
 
+```
 <iostream>, <ctime>, <iomanip>, <sstream>, <string>, <chrono>, <thread>, <limits>
+```
 
 Therefore, it is compatible with Windows, macOS, and Linux, as long as a modern compiler with full C++17 support is used.
 
