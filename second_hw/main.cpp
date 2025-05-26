@@ -10,7 +10,7 @@ int main() {
 
     MobileDev mobileDev("Nokia", 4.5);
 
-    Smartphone smartphone("Verizon");
+    Smartphone smartphone("Samsung", 6.2, 8192, 3.0, 12.0, "Verizon");
 
     camera.takePicture();
 
