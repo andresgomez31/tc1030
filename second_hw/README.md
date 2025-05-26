@@ -1,21 +1,21 @@
 # C++ Inheritance Project – `Smartphone`
 
-Este proyecto es una práctica de programación orientada a objetos en C++, que demuestra el uso de:
+This project is an object-oriented programming practice in C++, demonstrating the use of:
 
-- Herencia múltiple
-- Métodos virtuales y sobrecarga
-- Encapsulamiento
-- Temporizadores (`std::chrono`)
-- Entrada/salida con `std::cin` y `std::cout`
+- Multiple inheritance
+- Virtual methods and overloading
+- Encapsulation
+- Timers (`std::chrono`)
+- Input/output with `std::cin` and `std::cout`
 
-## Estructura
+## Structure
 
-- `Camera`: Clase base con método virtual `takePicture()`
-- `Computer`: Clase base que representa especificaciones de una computadora
-- `MobileDev`: Hereda de `Camera` y `Computer`, representa un dispositivo móvil
-- `Smartphone`: Hereda de `MobileDev`, agrega la propiedad de carrier y sobrecarga de métodos
+- `Camera`: Base class with virtual method `takePicture()`
+- `Computer`: Base class representing computer specifications
+- `MobileDev`: Inherits from `Camera` and `Computer`, represents a mobile device
+- `Smartphone`: Inherits from `MobileDev`, adds the carrier property and method overloading
 
-## Archivos
+## Files
 
 ```text
 second_hw/
@@ -33,71 +33,71 @@ second_hw/
 └── README.md
 ```
 
-## Compilación
+## Compilation
 
-### En macOS o Linux
+### On macOS or Linux
 
 ```bash
 clang++ -std=c++17 -o main main.cpp src/*.cpp
 ```
-o 
+or
 ```bash
 g++ -std=c++17 -o main main.cpp src/*.cpp
 ```
 
-### En Windows (con MinGW o Visual Studio)
+### On Windows (with MinGW or Visual Studio)
 
-Opción 1: Usando MinGW (recomendado si usas terminal como Git Bash o PowerShell)
+Option 1: Using MinGW (recommended if you use a terminal like Git Bash or PowerShell)
 
 ```bash
 g++ -std=c++17 -o main.exe main.cpp src/*.cpp
 ```
-Asegúrate de tener instalado g++ (MinGW) con soporte para C++17.
+Make sure you have g++ (MinGW) installed with C++17 support.
 
-Opción 2: Usando Visual Studio (Developer Command Prompt)
+Option 2: Using Visual Studio (Developer Command Prompt)
 
 ```bash
 cl /EHsc /std:c++17 main.cpp src\*.cpp
 ```
-Necesitas abrir el "Developer Command Prompt for VS" para que cl esté disponible.
+You need to open the "Developer Command Prompt for VS" so that cl is available.
 
 
-## Ejecución
+## Execution
 
-macOS o Linux:
+macOS or Linux:
 
 ```bash
 ./main
 ```
-Windows (CMD o PowerShell)
+Windows (CMD or PowerShell):
 
 ```bash
 main.exe
 ```
 
-El programa pedirá una cuenta regresiva para tomar una foto simulada desde un smartphone.
+The program will prompt for a countdown to take a simulated photo from a smartphone.
 
 
-## Requisitos
+## Requirements
 
-Compilador C++17 (o superior)
+C++17 compiler (or higher)
 
-Entorno compatible:
+Compatible environment:
 
 macOS/Linux: clang++, g++
 
-Windows: g++ (MinGW) o MSVC (Visual Studio)
+Windows: g++ (MinGW) or MSVC (Visual Studio)
 
-Terminal que acepte entrada estándar (std::cin)
+Terminal that accepts standard input (std::cin)
 
-## Compatibilidad
+## Compatibility
 
-Este proyecto usa solo librerías estándar:
+This project uses only standard libraries:
 
 <iostream>, <ctime>, <iomanip>, <sstream>, <string>, <chrono>, <thread>, <limits>
 
-Por tanto, es compatible con Windows, macOS y Linux, siempre que se use un compilador moderno que implemente C++17 completamente.
+Therefore, it is compatible with Windows, macOS, and Linux, as long as a modern compiler with full C++17 support is used.
 
-## Notas
+## Notes
 
-Este ejercicio fue realizado como práctica para comprender la herencia múltiple, el uso de métodos virtuales y el control del flujo de entrada/salida en C++.
+This exercise was carried out as practice to understand multiple inheritance, the use of virtual methods, and control of input/output flow in C++.
