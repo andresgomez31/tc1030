@@ -11,12 +11,12 @@ Smartphone::Smartphone(std::string brand, float screenSize, int ramAmount, float
     : MobileDev(brand, screenSize, ramAmount, cpuClockSpeed, lensSize), carrier(carrier) {}
 
 void Smartphone::takePicture() {
-    std::string input;
     int countdown = -1;
 
-    do {
+    while (true) {
         std::cout << "Enter the picture timer as an integer: ";
-        std::cin >> input;
+        std::string input;
+        std::getline(std::cin, input);
 
         try {
             countdown = std::stoi(input);
@@ -24,16 +24,12 @@ void Smartphone::takePicture() {
                 std::cout << "Countdown must be a positive integer." << std::endl;
                 continue;
             }
+            break;
         }
         catch (const std::exception&) {
             std::cout << "Invalid input. Try again." << std::endl;
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max());
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            countdown = -1;
-            continue;
         }
     }
-    while (countdown < 0);
 
     MobileDev::takePicture(countdown);
     std::cout << "Picture taken with phone carrier: " << carrier << std::endl;
