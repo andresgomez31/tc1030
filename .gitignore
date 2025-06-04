@@ -40,3 +40,7 @@
 
 # VSCode
 .vscode/
+
+# Trash directories
+.trash/
+.trash/*
