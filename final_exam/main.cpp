@@ -5,6 +5,13 @@
 #include "src/Cat.hpp"
 #include <vector>
 
+void free_memory(std::vector<Animal*> animals) {
+    for (Animal* animal : animals) {
+        delete animal; // Freeing memory allocated for each animal
+    }
+    animals.clear(); // Clearing the vector
+}
+
 int main() {
     // Creating vector with 3 cats and 3 dogs
     std::vector<Animal*> animals; 
@@ -34,6 +41,8 @@ int main() {
     // Saying Hi in all animals:
     for (const auto& animal : animals) animal->sayHi();
 
+    // Freeing memory
+    free_memory(animals);
     return 0;
 }
 
