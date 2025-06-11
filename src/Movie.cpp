@@ -24,3 +24,16 @@ std::string Movie::to_CSV() const {
 
     return result.str();
 }
+
+// Parse from Movie to string
+std::string Movie::to_string() const {
+    std::stringstream result;
+
+    result  << "Media ID: " << get_id() << "\n"
+            << "Title: " << get_title()
+            << "Duration: " << get_duration() << "\n"
+            << "Category: " << get_category() << "\n" 
+            << "Rating: " << get_rate();
+
+    return result.str();
+}

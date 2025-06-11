@@ -8,15 +8,20 @@ enum REVIEW_FIELDS {
     ID,
     AVERAGE,
     LESS_THAN,
+    LESS_OR_EQUAL_THAN,
     MORE_THAN,
-    MORE_THAN_N,
+    MORE_OR_EQUAL_THAN,
     LESS_THAN_N,
+    LESS_OR_EQUAL_THAN_N,
+    MORE_THAN_N,
+    MORE_OR_EQUAL_THAN_N,
     EXACTLY_N
 };
 
 class DB_Reviews : public DB_Service {
     private:
         std::unordered_map<std::string, std::vector<float>> data;
+        
         void load_data() override;
 
     public:
@@ -42,4 +47,6 @@ class DB_Reviews : public DB_Service {
 
         // Get all ratings of all media;
         std::map<std::string, float> get_ratings();
+
+        ~DB_Reviews() override;
 };

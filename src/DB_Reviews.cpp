@@ -44,7 +44,7 @@ std::unordered_map<std::string, std::vector<float>> DB_Reviews::get_reviews(std:
     std::unordered_map<std::string, std::vector<float>> result;
 
     for (const auto& review : data) {
-        bool match = true;
+        bool match = false;
 
         float avg = 0.0f;
         if (!review.second.empty()) {
@@ -55,31 +55,46 @@ std::unordered_map<std::string, std::vector<float>> DB_Reviews::get_reviews(std:
         for (const auto& filter : filters) {
             switch (filter.first) {
                 case ID:
-                    if (review.first != filter.second) match = false;
+                    if (review.first == filter.second) match = true;
                     break;
 
                 case AVERAGE:
-                    if (avg != std::stof(filter.second)) match = false;
+                    if (avg == std::stof(filter.second)) match = true;
                     break;
 
                 case LESS_THAN:
-                    if (avg >= std::stof(filter.second)) match = false;
+                    if (avg < std::stof(filter.second)) match = true;
+                    break;
+
+                case LESS_OR_EQUAL_THAN:
+                    if (avg <= std::stof(filter.second)) match = true;
                     break;
 
                 case MORE_THAN:
-                    if (avg <= std::stof(filter.second)) match = false;
+                    if (avg > std::stof(filter.second)) match = true;
                     break;
 
-                case MORE_THAN_N:
-                    if (review.second.size() <= std::stoi(filter.second)) match = false;
+                case MORE_OR_EQUAL_THAN:
+                    if (avg >= std::stof(filter.second)) match = true;
                     break;
 
                 case LESS_THAN_N:
-                    if (review.second.size() >= std::stoi(filter.second)) match = false;
+                    if (review.second.size() < std::stoi(filter.second)) match = true;
                     break;
 
+                case LESS_OR_EQUAL_THAN_N:
+                    if (review.second.size() <= std::stoi(filter.second)) match = true;
+                    break;
+
+                case MORE_THAN_N:
+                    if (review.second.size() > std::stoi(filter.second)) match = true;
+                    break;
+
+                case MORE_OR_EQUAL_THAN_N:
+                    if (review.second.size() >= std::stoi(filter.second)) match = true;
+
                 case EXACTLY_N:
-                    if (review.second.size() != std::stoi(filter.second)) match = false;
+                    if (review.second.size() == std::stoi(filter.second)) match = true;
                     break;
 
                 default:
@@ -118,4 +133,11 @@ std::map<std::string, float> DB_Reviews::get_ratings() {
         result.insert({review.first, get_rating(review.first)});
     }
     return result;
+}
+
+DB_Reviews::~DB_Reviews() {
+    for (auto& review : data) {
+        review.second.clear();
+    }
+    data.clear();
 }

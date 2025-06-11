@@ -30,3 +30,8 @@ void Media::update_rate(float new_rate) {
     }
     rate = std::to_string(new_rate);
 }
+
+// Updaters
+void Media::update_title(std::string new_title) { this->title = new_title; }
+void Media::update_duration(std::string new_duration) { this->duration = new_duration; }
+void Media::update_category(std::string new_category) { this->category = new_category; }

@@ -30,14 +30,16 @@ class Media {
         // Parse from Media subclass to CSV
         virtual std::string to_CSV() const = 0;
 
+        // Parse from Media subclass to string
+        virtual std::string to_string() const = 0;
+
         // Update the rating
         void update_rate(float rate);
 
-        // Not asked for this methods. Would be cool to implement
-        // void update_id() const;
-        // void update_title() const;
-        // void update_duration() const;
-        // void update_category() const;
+        // Not asked for this methods.
+        void update_title(std::string new_title);
+        void update_duration(std::string new_duration);
+        void update_category(std::string new_category);
 
         virtual ~Media();
 };

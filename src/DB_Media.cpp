@@ -47,7 +47,7 @@ const std::vector<Media*>& DB_Media::get_media() const {
     return data;
 }
 
-const std::vector<Media*> DB_Media::get_media(std::map<MEDIA_FIELDS, std::string> filters) const {
+std::vector<Media*> DB_Media::get_media(std::map<MEDIA_FIELDS, std::string> filters) {
     std::vector<Media*> result;
 
     for (const auto& media : data) {
@@ -80,6 +80,12 @@ const std::vector<Media*> DB_Media::get_media(std::map<MEDIA_FIELDS, std::string
                     if (!chapter || chapter->get_chapter() != filter.second) match = false;
                     break;
                 }
+                case RATE_FROM:
+                    if (std::stod(media->get_rate()) < std::stod(filter.second)) match = false;
+                    break;
+                case RATE_TO:
+                    if (std::stod(media->get_rate()) > std::stod(filter.second)) match = false;
+                    break;
                 case RATE:
                     if (media->get_rate() != filter.second) match = false;
                     break;
@@ -93,10 +99,21 @@ const std::vector<Media*> DB_Media::get_media(std::map<MEDIA_FIELDS, std::string
     return result;
 }
 
-void DB_Media::update_rating(std::string id, float rating) const {
-    Media* media = index_by_id.at(id);
-    if (media) {
-        media->update_rate(rating);
+// Got help from GitHub Copilot to implement this function
+void DB_Media::update_media(std::map<MEDIA_FIELDS, std::string> data, std::string& id) {
+    auto it = index_by_id.find(id);
+    if (it != index_by_id.end()) {
+        Media* media = it->second;
+        if (data.find(TITLE) != data.end()) media->update_title(data[TITLE]);
+        if (data.find(DURATION) != data.end()) media->update_duration(data[DURATION]);
+        if (data.find(CATEGORY) != data.end()) media->update_category(data[CATEGORY]);
+        
+        // For Chapters, update series title and chapter
+        if (dynamic_cast<Chapter*>(media)) {
+            Chapter* chapter = static_cast<Chapter*>(media);
+            if (data.find(SERIES_TITLE) != data.end()) chapter->update_series_title(data[SERIES_TITLE]);
+            if (data.find(CHAPTER) != data.end()) chapter->update_chapter(data[CHAPTER]);
+        }
     } else {
         throw std::runtime_error("Media with ID " + id + " not found.");
     }
@@ -104,7 +121,7 @@ void DB_Media::update_rating(std::string id, float rating) const {
 
 DB_Media::~DB_Media() {
     for (auto& media : data) {
-        delete media; // Assuming ownership of Media objects
+        delete media;
     }
     data.clear();
     index_by_id.clear();

@@ -22,4 +22,6 @@ class DB_Service {
 
         std::vector<std::string> read_CSV() const;
         virtual void load_data() = 0;
+
+        virtual ~DB_Service() = default;
 };

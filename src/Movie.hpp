@@ -17,4 +17,7 @@ class Movie : public Media {
 
         // Parse from Movie object to CSV
         std::string to_CSV() const;
+
+        // Parse from Movie object to string
+        std::string to_string() const override;
 };

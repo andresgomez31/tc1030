@@ -28,7 +28,10 @@ class Chapter : public Media {
         // Parse from Chapter object to CSV
         std::string to_CSV() const;
 
-        // Not asked for this methods. Would be cool to implement
-        // void update_series_name() const;
-        // void update_chapter() const;
+        // Parse from Chapter object to string
+        std::string to_string() const override;
+
+        // Not asked for this methods.
+        void update_series_title(const std::string& new_series_title);
+        void update_chapter(const std::string& new_chapter);
 };

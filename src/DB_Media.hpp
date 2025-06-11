@@ -12,7 +12,9 @@ enum MEDIA_FIELDS {
     CATEGORY,
     SERIES_TITLE,
     CHAPTER,
-    RATE
+    RATE_FROM,
+    RATE_TO,
+    RATE,
 };
 
 class DB_Media : public DB_Service {
@@ -27,16 +29,10 @@ class DB_Media : public DB_Service {
         DB_Media(std::string path);
         // Getters
         const std::vector<Media*>& get_media() const;
-        const std::vector<Media*> get_media(std::map<MEDIA_FIELDS, std::string> filters) const;
+        std::vector<Media*> get_media(std::map<MEDIA_FIELDS, std::string> filters);
 
         // Setting rating on Media objects:
-        void update_rating(std::string id, float rating) const;
-
-        // Additional methods not implemented for this project.
-        // void update_id(std::string id, std::string new_id) const;
-        // void update_title(std::string id, std::string new_title) const;
-        // void update_duration(std::string id, std::string new_duration) const;
-        // void update_category(std::string id, std::string new_category) const;
+        void update_media(std::map<MEDIA_FIELDS, std::string> data, std::string& id);
 
         ~DB_Media();
 };

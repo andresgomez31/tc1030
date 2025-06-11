@@ -17,6 +17,10 @@ Chapter::Chapter(
 const std::string& Chapter::get_series_title() const { return series_title; }
 const std::string& Chapter::get_chapter() const { return chapter; }
 
+// Updaters
+void Chapter::update_series_title(const std::string& new_series_title) { this->series_title = new_series_title; }
+void Chapter::update_chapter(const std::string& new_chapter) { this->chapter = new_chapter; }
+
 // Parse from Chapter to CSV;
 std::string Chapter::to_CSV() const {
     std::stringstream result;
@@ -33,8 +37,7 @@ std::string Chapter::to_CSV() const {
     return result.str();
 }
 
-/* Me equivoque
-// Parse from Chapter to CSV; Lo hice a str.
+// Parse from Chapter to string
 std::string Chapter::to_string() const {
     std::stringstream result;
 
@@ -42,12 +45,9 @@ std::string Chapter::to_string() const {
             << "Title: " << get_title()
             << "Duration: " << get_duration() << "\n"
             << "Category: " << get_category() << "\n" 
-            << "Series Name: " << get_series_name() << "\n"
+            << "Series Name: " << get_series_title() << "\n"
             << "Chapter Number: " << get_chapter() << "\n" 
             << "Rating: " << get_rate();
 
     return result.str();
 }
-
-quedo muy bonito como para borrarlo. 
-*/
