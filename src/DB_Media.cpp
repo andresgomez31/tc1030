@@ -54,39 +54,39 @@ std::vector<Media*> DB_Media::get_media(std::map<MEDIA_FIELDS, std::string> filt
         bool match = true;
         for (const auto& filter : filters) {
             switch (filter.first) {
-                case ID:
+                case MEDIA_FIELDS::BY_ID:
                     if (media->get_id() != filter.second) match = false;
                     break;
-                case TYPE:
+                case MEDIA_FIELDS::TYPE:
                     if (media->get_type() != filter.second) match = false;
                     break;
-                case TITLE:
+                case MEDIA_FIELDS::TITLE:
                     if (media->get_title() != filter.second) match = false;
                     break;
-                case DURATION:
+                case MEDIA_FIELDS::DURATION:
                     if (media->get_duration() != filter.second) match = false;
                     break;
-                case CATEGORY:
+                case MEDIA_FIELDS::CATEGORY:
                     if (media->get_category() != filter.second) match = false;
                     break;
-                case SERIES_TITLE: {
+                case MEDIA_FIELDS::SERIES_TITLE: {
                     // Only check if media is a Chapter
                     const Chapter* chapter = dynamic_cast<const Chapter*>(media);
                     if (!chapter || chapter->get_series_title() != filter.second) match = false;
                     break;
                 }
-                case CHAPTER: {
+                case MEDIA_FIELDS::CHAPTER: {
                     const Chapter* chapter = dynamic_cast<const Chapter*>(media);
                     if (!chapter || chapter->get_chapter() != filter.second) match = false;
                     break;
                 }
-                case RATE_FROM:
+                case MEDIA_FIELDS::RATE_FROM:
                     if (std::stod(media->get_rate()) < std::stod(filter.second)) match = false;
                     break;
-                case RATE_TO:
+                case MEDIA_FIELDS::RATE_TO:
                     if (std::stod(media->get_rate()) > std::stod(filter.second)) match = false;
                     break;
-                case RATE:
+                case MEDIA_FIELDS::RATE:
                     if (media->get_rate() != filter.second) match = false;
                     break;
                 default:

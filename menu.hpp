@@ -1,6 +1,6 @@
 #pragma once
 
-#include "src/DB_Media.hpp"
+#include "src/DB.hpp"
 
 void show_all_media(DB& db);
 void review_media(DB& db);

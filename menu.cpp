@@ -1,5 +1,4 @@
 #include "menu.hpp"
-#include "DB.hpp"
 #include <iostream>
 
 void show_all_media(DB& db) {
@@ -16,7 +15,7 @@ void review_media(DB& db) {
     do {
         std::cout << "Enter the ID of the media to review: ";
         std::getline(std::cin, id);
-        found = db.media.get_media({{MEDIA_FIELDS::ID, id}});
+        found = db.media.get_media({{MEDIA_FIELDS::BY_ID, id}});
         if (found.empty()) {
             std::cout << "Media with ID '" << id << "' not found. Please try again." << std::endl;
         }

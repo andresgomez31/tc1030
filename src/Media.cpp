@@ -9,7 +9,7 @@ Media::Media(
     const std::string& title,
     const std::string& duration,
     const std::string& category,
-    const std::string& rate = "SC"
+    const std::string& rate
 ) : type(type), id(id), title(title), duration(duration), category(category), rate(rate) {}
 
 // Getters

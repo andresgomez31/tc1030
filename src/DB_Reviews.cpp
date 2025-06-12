@@ -54,46 +54,46 @@ std::unordered_map<std::string, std::vector<float>> DB_Reviews::get_reviews(std:
 
         for (const auto& filter : filters) {
             switch (filter.first) {
-                case ID:
+                case REVIEW_FIELDS::ID:
                     if (review.first == filter.second) match = true;
                     break;
 
-                case AVERAGE:
+                case REVIEW_FIELDS::AVERAGE:
                     if (avg == std::stof(filter.second)) match = true;
                     break;
 
-                case LESS_THAN:
+                case REVIEW_FIELDS::LESS_THAN:
                     if (avg < std::stof(filter.second)) match = true;
                     break;
 
-                case LESS_OR_EQUAL_THAN:
+                case REVIEW_FIELDS::LESS_OR_EQUAL_THAN:
                     if (avg <= std::stof(filter.second)) match = true;
                     break;
 
-                case MORE_THAN:
+                case REVIEW_FIELDS::MORE_THAN:
                     if (avg > std::stof(filter.second)) match = true;
                     break;
 
-                case MORE_OR_EQUAL_THAN:
+                case REVIEW_FIELDS::MORE_OR_EQUAL_THAN:
                     if (avg >= std::stof(filter.second)) match = true;
                     break;
 
-                case LESS_THAN_N:
+                case REVIEW_FIELDS::LESS_THAN_N:
                     if (review.second.size() < std::stoi(filter.second)) match = true;
                     break;
 
-                case LESS_OR_EQUAL_THAN_N:
+                case REVIEW_FIELDS::LESS_OR_EQUAL_THAN_N:
                     if (review.second.size() <= std::stoi(filter.second)) match = true;
                     break;
 
-                case MORE_THAN_N:
+                case REVIEW_FIELDS::MORE_THAN_N:
                     if (review.second.size() > std::stoi(filter.second)) match = true;
                     break;
 
-                case MORE_OR_EQUAL_THAN_N:
+                case REVIEW_FIELDS::MORE_OR_EQUAL_THAN_N:
                     if (review.second.size() >= std::stoi(filter.second)) match = true;
 
-                case EXACTLY_N:
+                case REVIEW_FIELDS::EXACTLY_N:
                     if (review.second.size() == std::stoi(filter.second)) match = true;
                     break;
 

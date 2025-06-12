@@ -17,8 +17,5 @@ class DB {
         DB_Reviews reviews;
 
         // Destructor
-        ~DB() {
-            delete &media;
-            delete &reviews;
-        }
+        ~DB();
 };

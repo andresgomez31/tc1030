@@ -26,7 +26,7 @@ class Chapter : public Media {
         const std::string& get_chapter() const;
 
         // Parse from Chapter object to CSV
-        std::string to_CSV() const;
+        std::string to_CSV() const override;
 
         // Parse from Chapter object to string
         std::string to_string() const override;

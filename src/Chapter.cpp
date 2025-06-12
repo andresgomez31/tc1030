@@ -31,7 +31,7 @@ std::string Chapter::to_CSV() const {
             << get_duration() << ","
             << get_category() << ","
             << get_series_title() << ","
-            << get_chapter << ","
+            << get_chapter() << ","
             << get_rate() << ",";
 
     return result.str();

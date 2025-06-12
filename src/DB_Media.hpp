@@ -6,7 +6,7 @@
 
 enum MEDIA_FIELDS {
     TYPE,
-    ID,
+    BY_ID,
     TITLE,
     DURATION,
     CATEGORY,
