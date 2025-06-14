@@ -1,9 +1,12 @@
+// File: menu.hpp
+
 #pragma once
 
 #include "src/DB.hpp"
 
-void show_all_media(DB& db);
-void review_media(DB& db);
-void show_media(DB& db, std::map<MEDIA_FIELDS, std::string> filters);
-void free_memory(DB& db);
-void menu(DB& db);
+void print_options();
+void print_all_media(DB& db, bool details = false);
+void print_all_with_min_rate(DB& db, float& rate, bool details = false);
+void print_all_of_genre(DB& db, std::string& genre, bool details = false);
+void rate_media(DB& db);
+void menu(std::string path, bool details = false);
