@@ -1,6 +1,4 @@
-// File: Movie.hpp
-
-#pragma once
+// File: src/Movie.hpp
 
 #include "Media.hpp"
 
@@ -8,16 +6,19 @@ class Movie : public Media {
     public:
         // Constructor
         Movie(
-            const std::string& id, 
-            const std::string& title, 
-            const std::string& duration, 
-            const std::string& category, 
-            const std::string& rate = "SC"
+            std::string id, 
+            std::string title,
+            std::string duration,
+            std::string genre,
+            std::string rate
         );
 
-        // Parse from Movie object to CSV
-        std::string to_CSV() const override;
-
-        // Parse from Movie object to string
+        // Parse to string
         std::string to_string() const override;
+
+        // Parse to csv
+        std::string to_csv() const override;
+
+        // Destructor
+        ~Movie();
 };

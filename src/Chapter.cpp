@@ -1,53 +1,49 @@
-// File: Chapter.cpp
+// File: src/Chapter.cpp
 
-#include <sstream>
 #include "Chapter.hpp"
 
 Chapter::Chapter(
-    const std::string& id,
-    const std::string& title,
-    const std::string& duration,
-    const std::string& category, 
-    const std::string& series_title,
-    const std::string& chapter,
-    const std::string& rate
-) : Media("Chapter", id, title, duration, category, rate), series_title(series_title), chapter(chapter) {}
+    std::string& id, 
+    std::string& title,
+    std::string& duration,
+    std::string& genre,
+    std::string& series_title,
+    std::string& chapter,
+    std::string& rate
+) : Media(id, title, duration, genre, rate), series_title(series_title), chapter(chapter) {}
 
 // Getters
-const std::string& Chapter::get_series_title() const { return series_title; }
-const std::string& Chapter::get_chapter() const { return chapter; }
+const std::string& Chapter::get_series_title() const { return this->series_title; }
+const std::string& Chapter::get_chapter() const { return this->chapter; }
 
-// Updaters
-void Chapter::update_series_title(const std::string& new_series_title) { this->series_title = new_series_title; }
-void Chapter::update_chapter(const std::string& new_chapter) { this->chapter = new_chapter; }
+// No setters needed
 
-// Parse from Chapter to CSV;
-std::string Chapter::to_CSV() const {
-    std::stringstream result;
+// Parse to string
+std::string Chapter::to_string() const {
+    std::stringstream chapter;
+    chapter << "ID: " << get_id() << "\n"
+            << "Title: " << get_title() << "\n"
+            << "Duration: " << get_duration() << "\n"
+            << "Genre: " << get_genre() << "\n"
+            << "Series title: " << get_series_title() << "\n"
+            << "Chapter No. " << get_chapter() << "\n"
+            << "Rate: " << get_rate() << "\n";
+    return chapter.str(); 
+}
 
-    result  << "c" << ","
+// Parse to csv string format
+std::string Chapter::to_csv() const {
+    std::stringstream chapter;
+    chapter << "c,"
             << get_id() << ","
             << get_title() << ","
             << get_duration() << ","
-            << get_category() << ","
+            << get_genre() << ","
             << get_series_title() << ","
             << get_chapter() << ","
-            << get_rate() << ",";
-
-    return result.str();
+            << get_rate();
+    return chapter.str();
 }
 
-// Parse from Chapter to string
-std::string Chapter::to_string() const {
-    std::stringstream result;
-
-    result  << "Media ID: " << get_id() << "\n"
-            << "Title: " << get_title()
-            << "Duration: " << get_duration() << "\n"
-            << "Category: " << get_category() << "\n" 
-            << "Series Name: " << get_series_title() << "\n"
-            << "Chapter Number: " << get_chapter() << "\n" 
-            << "Rating: " << get_rate();
-
-    return result.str();
-}
+// Destructor
+Chapter::~Chapter() {}
