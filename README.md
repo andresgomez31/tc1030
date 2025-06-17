@@ -9,7 +9,7 @@ The project is organized into several `.cpp` (implementation) and `.hpp` (header
 ```
 .
 ├── data/
-│   └── media.csv       (or videos.txt, see 'Additional Notes')
+│   └── media.csv
 ├── main.cpp
 ├── menu.cpp
 ├── menu.hpp
