@@ -49,6 +49,9 @@ The project is organized into several `.cpp` (implementation) and `.hpp` (header
   - `instance_media()`: Dynamically creates a Movie or Chapter instance from a CSV line, based on media type.
   - `create_id_indexes()`, `create_genre_indexes()`, `create_rate_indexes()`: Functions to build DB's internal indexes.
 
+**Proyect UML Diagram**
+![UML diagram for class usage on problem_sit proyect](https://github.com/andresgomez31/tc1030/blob/problem_sit/UML.png)
+
 ## 2. System Features
 
 This program offers a console interface to interact with a multimedia catalog.
