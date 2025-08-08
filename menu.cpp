@@ -1,27 +1,83 @@
+// File: menu.cpp
+
 #include "menu.hpp"
+#include <sstream>
 #include <iostream>
 
-void show_all_media(DB& db) {
-    std::vector<Media*> media = db.media.get_media();
+void print_options() {
+    std::stringstream output;
 
-    for (const Media* m : media) {
-        std::cout << m->to_string() << std::endl;
-    }
+    output  << "1) Mostrar todo el catalogo con calificaciones." << "\n"
+            << "2) Calificar un video." << "\n"
+            << "3) Mostrar peliculas o capitulos con una calificacion minima determinada." << "\n"
+            << "4) Mostrar peliculas o capitulos de un cierto genero." << "\n"
+            << "9) Salir." << "\n";
+
+    std::cout << output.str();
 }
 
-void review_media(DB& db) {
+void print_all_media(DB& db, bool details) {
+    std::stringstream result;
+    for (const auto& pair : db.id_indexes) {
+        if (details) {
+            result << pair.second->to_string() << "\n";
+        }
+        else {
+            result << pair.first << "\n";
+        }
+    }
+    std::cout << result.str();
+}
+
+void print_all_with_min_rate(DB& db, float& rate, bool details) {
+    std::vector<std::string> media_ids;
+    std::stringstream result;
+    for (const auto& pair : db.rate_indexes) {
+        if (pair.second >= rate) {
+            media_ids.push_back(pair.first);
+        }
+    }
+    for (const std::string& media_id : media_ids) {
+        if (details) {    
+            result << db.id_indexes[media_id]->to_string() << "\n";
+        }
+        else {
+            result << media_id << "\n";
+        }
+    }
+    std::cout << result.str();
+}
+
+void print_all_of_genre(DB& db, std::string& genre, bool details) {
+    std::stringstream result;
+    for (const auto& media : db.genre_indexes[genre]) {
+        if (details) {
+            result << media->to_string() << "\n";
+        }
+        else {
+            result << media->get_id() << "\n";
+        }
+    }
+    std::cout << result.str();
+}
+
+void rate_media(DB& db) {
     std::string id;
-    std::vector<Media*> found;
+    bool media_found = false;
     do {
         std::cout << "Enter the ID of the media to review: ";
         std::getline(std::cin, id);
-        found = db.media.get_media({{MEDIA_FIELDS::BY_ID, id}});
-        if (found.empty()) {
+        auto it = db.id_indexes.find(id);
+        if (it == db.id_indexes.end()) {
             std::cout << "Media with ID '" << id << "' not found. Please try again." << std::endl;
         }
-    } while (found.empty());
+        else {
+            media_found = true;
+        }
+    } while (!media_found);
 
-    int review = -1;
+    int review;
+
     do {
         std::cout << "Enter your review (0-5): ";
         std::string input;
@@ -36,72 +92,59 @@ void review_media(DB& db) {
         }
     } while (review < 0 || review > 5);
 
-    db.reviews.append_review(id, review);
-
-    std::cout << "Review submitted successfully for media ID " << id << "." << std::endl;
-}
-
-void show_media(DB& db, std::map<MEDIA_FIELDS, std::string> filters) {
-    std::vector<Media*> media = db.media.get_media(filters);
-
-    if (media.empty()) {
-        std::cout << "No media found matching the specified criteria." << std::endl;
-        return;
+    auto it = db.rates.find(id);
+    if (it == db.rates.end()) {
+        std::vector<float> rates; 
+        rates.push_back(review);
+        db.rates.insert({ id, rates });
+        db.id_indexes[id]->set_rate(std::to_string(review));
+        db.rate_indexes[id] = review; // Initialize the rate index
     }
-
-    for (const Media* m : media) {
-        std::cout << m->to_string() << std::endl;
+    else {
+        db.rates[id].push_back(review);
+        float avg;
+        for (float& _ : db.rates[id]) avg += _;
+        avg /= db.rates[id].size();
+        db.id_indexes[id]->set_rate(std::to_string(avg));
+        db.rate_indexes[id] = avg; // Update the rate index
+        std::cout << "New average rating for media with ID '" << id << "' is: " << avg << std::endl;
     }
 }
 
-void free_memory(DB& db) {
-    delete &db;
-    std::cout << "Memory freed successfully." << std::endl;
-}
+void menu(std::string path, bool details) {
+    DB db(path);
+    int option;
+    float rate;
+    std::string genre;
 
-void menu(DB& db) {
-    while (true) {
-        std::cout << "\nMenu:\n";
-        std::cout << "1. Mostrar todo el catalogo con calificaciones.\n";
-        std::cout << "2. Calificar un video\n";
-        std::cout << "3. Mostrar peliculas o capitulos con una calificacion minima determinada\n";
-        std::cout << "4. Mostrar peliculas o capitulos de un cierto genero.\n";
-        std::cout << "9. Salir\n";
-        std::cout << "Seleccione una opcion: ";
+    do {
+        std::cout << "Select an option: " << std::endl;
+        print_options();
+        std::cin >> option;
+        std::cin.ignore();
 
-        std::string input;
-        std::getline(std::cin, input);
-
-        if (input == "1") {
-            show_all_media(db);
-        } else if (input == "2") {
-            review_media(db);
-        } else if (input == "3") {
-            std::cout << "Ingrese la calificacion minima (0-5): ";
-            std::string min_rating_str;
-            std::getline(std::cin, min_rating_str);
-            int min_rating = 0;
-            try {
-                min_rating = std::stoi(min_rating_str);
-            } catch (...) {
-                min_rating = 0;
-            }
-            std::map<MEDIA_FIELDS, std::string> filters;
-            filters[MEDIA_FIELDS::RATE_FROM] = std::to_string(min_rating);
-            show_media(db, filters);
-        } else if (input == "4") {
-            std::cout << "Ingrese el genero: ";
-            std::string genre;
-            std::getline(std::cin, genre);
-            std::map<MEDIA_FIELDS, std::string> filters;
-            filters[MEDIA_FIELDS::CATEGORY] = genre;
-            show_media(db, filters);
-        } else if (input == "9") {
-            free_memory(db);
-            std::cout << "Saliendo del programa.\n";
-            break;
-        } else {
-            std::cout << "Opcion invalida. Intente de nuevo.\n";
+        switch (option) {
+            case 1:
+                print_all_media(db, details);
+                break;
+            case 2:
+                rate_media(db);
+                break;
+            case 3:
+                std::cout << "Enter minimum rating: ";
+                std::cin >> rate;
+                std::cin.ignore();
+                print_all_with_min_rate(db, rate, details);
+                break;
+            case 4:
+                std::cout << "Enter genre: ";
+                std::getline(std::cin, genre);
+                print_all_of_genre(db, genre, details);
+                break;
+            default:
+                if (option != 9) {
+                    std::cout << "Invalid option. Please try again." << std::endl;
+                }
         }
-    }
+    } while (option != 9);
 }

@@ -1,45 +1,41 @@
-// File: Media.hpp
+// File: src/Media.hpp
 
 #pragma once
 
 #include <string>
+#include <sstream>
 
 class Media {
-    private:
-        std::string type, id, title, duration, category, rate;
+    private: 
+        std::string id, title, duration, genre, rate;
 
     public:
         // Constructor
         Media(
-            const std::string& type,
-            const std::string& id,
-            const std::string& title,
-            const std::string& duration,
-            const std::string& category,
-            const std::string& rate = "SC"
+            std::string& id, 
+            std::string& title,
+            std::string& duration,
+            std::string& genre,
+            std::string& rate
         );
 
         // Getters
-        const std::string get_type() const;
-        const std::string get_id() const;
-        const std::string get_title() const;
-        const std::string get_duration() const;
-        const std::string get_category() const;
-        const std::string get_rate() const;
+        const std::string& get_id() const;
+        const std::string& get_title() const;
+        const std::string& get_duration() const;
+        const std::string& get_genre() const;
+        const std::string& get_rate() const;
 
-        // Parse from Media subclass to CSV
-        virtual std::string to_CSV() const = 0;
+        // Setters
+        // Only need set_rate();
+        void set_rate(std::string rate);
 
-        // Parse from Media subclass to string
+        // Parse to string
         virtual std::string to_string() const = 0;
 
-        // Update the rating
-        void update_rate(float rate);
+        // Parse to csv string format
+        virtual std::string to_csv() const = 0;
 
-        // Not asked for this methods.
-        void update_title(std::string new_title);
-        void update_duration(std::string new_duration);
-        void update_category(std::string new_category);
-
+        // Destructor;
         virtual ~Media();
 };

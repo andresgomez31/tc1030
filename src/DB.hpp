@@ -1,20 +1,24 @@
-// File: DB.hpp
+// File: src/DB.hpp
 
 #pragma once
 
-#include "DB_Media.hpp"
-#include "DB_Reviews.hpp"
+#include "functions.hpp"
 
 class DB {
     private:
-        std::string path;
-        
-    public:
-        // Constructor
-        DB(std::string path);
+        // Path for data csv
+        std::string csv_path;
 
-        DB_Media media;
-        DB_Reviews reviews;
+    public:
+        // Data and indexes
+        std::vector<Media*> data;
+        std::unordered_map<std::string, std::vector<float>> rates;
+        std::unordered_map<std::string, Media*> id_indexes;
+        std::unordered_map<std::string, std::vector<Media*>> genre_indexes;
+        std::unordered_map<std::string, float> rate_indexes;
+
+        // Constructor
+        DB(std::string& csv_path);
 
         // Destructor
         ~DB();
